@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
     selectedItem = items[0];
   }
-  bool validate(){
+  bool invalidate(){
     return EmailController.text.isEmpty || PasswordCont.text.isEmpty;
   }
   Widget build(BuildContext context) {
@@ -187,12 +187,15 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(height: 100),
               InkWell(
                 onTap: ()async{
-
-                  if(!validate()) {
+                  if(invalidate()) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Enter email or password'),backgroundColor: Colors.red,),);
+                  }
+                  else{
                   SharedPreferences sp = await SharedPreferences.getInstance();
                   sp.setString('email', EmailController.text.toString());
                   sp.setString('Role', selectedItem.toString());
                   sp.setBool('islogin', true);
+
                     if (selectedItem == 'Repair') {
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) => CarRepairHome()));
@@ -204,12 +207,6 @@ class _LoginPageState extends State<LoginPage> {
                           MaterialPageRoute(builder: (context) => Buyer()));
                     }
                   }
-
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Enter email or password'),
-                      backgroundColor: Colors.red,
-                    ),
-                  );
                   },
                 child: Container(
                   height: 50,
