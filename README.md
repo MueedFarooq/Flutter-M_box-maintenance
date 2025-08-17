@@ -3,10 +3,10 @@
 A Flutter mobile app for car repair, sale, and purchase with role-based login and persistent sessions.
 
 ## 📱 Screenshots
-<img width="444" height="933" alt="image" src="https://github.com/user-attachments/assets/ff4f07d9-aabe-4124-8377-79f26a58634b" />
-<img width="443" height="877" alt="image" src="https://github.com/user-attachments/assets/b647f867-ff14-4764-8c38-d29588a80337" />
-<img width="443" height="877" alt="image" src="https://github.com/user-attachments/assets/64b165ae-4c49-4c7b-a9d8-ee81b1de84ed" />
-<img width="440" height="875" alt="image" src="https://github.com/user-attachments/assets/701c9a27-81f7-4ee2-b11b-11022f22d7f5" />
+<img width="350" height="750" alt="image" src="https://github.com/user-attachments/assets/ff4f07d9-aabe-4124-8377-79f26a58634b" />
+<img width="350" height="800" alt="image" src="https://github.com/user-attachments/assets/b647f867-ff14-4764-8c38-d29588a80337" />
+<img width="350" height="800" alt="image" src="https://github.com/user-attachments/assets/64b165ae-4c49-4c7b-a9d8-ee81b1de84ed" />
+<img width="350" height="800" alt="image" src="https://github.com/user-attachments/assets/701c9a27-81f7-4ee2-b11b-11022f22d7f5" />
 
 
 ## ✨ Features
