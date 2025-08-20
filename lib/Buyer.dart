@@ -26,6 +26,7 @@ class _BuyerState extends State<Buyer> {
     setState(() {});
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

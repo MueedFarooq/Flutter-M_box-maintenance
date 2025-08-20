@@ -43,6 +43,7 @@ class _SplashscreenState extends State<Splashscreen> {
       Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginPage()));
     });
   }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(

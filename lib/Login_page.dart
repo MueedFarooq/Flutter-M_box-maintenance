@@ -5,6 +5,7 @@ import 'package:m_box/car_repair_home.dart';
 import 'package:m_box/constants.dart';
 import 'package:m_box/Signedup_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -15,16 +16,19 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final EmailController = TextEditingController();
   final PasswordCont = TextEditingController();
-  List<String> items = ['Repair','Seller','Buyer'];
-  String? selectedItem ;
+  List<String> items = ['Repair', 'Seller', 'Buyer'];
+  String? selectedItem;
   @override
-  initState(){
+  initState() {
     super.initState();
     selectedItem = items[0];
   }
-  bool invalidate(){
+
+  bool invalidate() {
     return EmailController.text.isEmpty || PasswordCont.text.isEmpty;
   }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -143,18 +147,16 @@ class _LoginPageState extends State<LoginPage> {
                     child: Text(
                       'Forgot Password?',
                       style: TextStyle(
-                          color: Color(0xff203142),
-                          fontSize: 16,
-                          fontFamily: 'Rubik regular',
-                          decoration: TextDecoration.underline
+                        color: Color(0xff203142),
+                        fontSize: 16,
+                        fontFamily: 'Rubik regular',
+                        decoration: TextDecoration.underline,
                       ),
                     ),
                   ),
                 ],
               ),
-              SizedBox(
-                height: 10,
-              ),
+              SizedBox(height: 10),
               SizedBox(
                 width: 240,
                 child: DropdownButtonFormField<String>(
@@ -172,12 +174,14 @@ class _LoginPageState extends State<LoginPage> {
                     filled: true,
                   ),
                   value: selectedItem,
-                  items: items.map((String item){
-                    return DropdownMenuItem(
-                        value: item,
-                        child: Text(item,style: TextStyle(fontSize: 20),));
-                  }).toList(),
-                  onChanged: (String? newvalue){
+                  items:
+                      items.map((String item) {
+                        return DropdownMenuItem(
+                          value: item,
+                          child: Text(item, style: TextStyle(fontSize: 20)),
+                        );
+                      }).toList(),
+                  onChanged: (String? newvalue) {
                     setState(() {
                       selectedItem = newvalue;
                     });
@@ -186,28 +190,41 @@ class _LoginPageState extends State<LoginPage> {
               ),
               SizedBox(height: 100),
               InkWell(
-                onTap: ()async{
-                  if(invalidate()) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Enter email or password'),backgroundColor: Colors.red,),);
-                  }
-                  else{
-                  SharedPreferences sp = await SharedPreferences.getInstance();
-                  sp.setString('email', EmailController.text.toString());
-                  sp.setString('Role', selectedItem.toString());
-                  sp.setBool('islogin', true);
+                onTap: () async {
+                  if (invalidate()) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Enter email or password'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  } else {
+                    SharedPreferences sp =
+                        await SharedPreferences.getInstance();
+                    sp.setString('email', EmailController.text.toString());
+                    sp.setString('Role', selectedItem.toString());
+                    sp.setBool('islogin', true);
 
                     if (selectedItem == 'Repair') {
-                      Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => CarRepairHome()));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CarRepairHome(),
+                        ),
+                      );
                     } else if (selectedItem == 'Seller') {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Seller()));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Seller()),
+                      );
                     } else {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Buyer()));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Buyer()),
+                      );
                     }
                   }
-                  },
+                },
                 child: Container(
                   height: 50,
                   width: 300,
@@ -241,7 +258,14 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   SizedBox(width: 5),
                   InkWell(
-                    onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context) =>const Signedup()));},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Signedup(),
+                        ),
+                      );
+                    },
                     hoverColor: orangeColor,
                     hoverDuration: Duration(seconds: 3),
                     child: Text(
@@ -262,4 +286,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-

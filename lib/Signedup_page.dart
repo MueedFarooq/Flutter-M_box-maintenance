@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:m_box/constants.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Signedup extends StatefulWidget {
   const Signedup({super.key});
@@ -15,6 +14,7 @@ class _SignedupState extends State<Signedup> {
   final emal_controller = TextEditingController();
   final passwordcontroler = TextEditingController();
   final ConformController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -29,63 +29,82 @@ class _SignedupState extends State<Signedup> {
       ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(height: 50),
-            Textfromfield(hintText: 'First Name', controller: first_controller,see: false),
-            Textfromfield(hintText: 'Last Name', controller: last_controller, see: false),
-            Textfromfield(hintText: 'Email', controller: emal_controller,see: false),
-            Textfromfield(
-              hintText: 'Password',
-              controller: passwordcontroler,
-              see: true,
-            ),
-            Textfromfield(
-              hintText: 'Conform Password',
-              controller: ConformController,
-              see: true,
-            ),
-            SizedBox(height: 50),
-            CustomButton(
-              TxT: 'Signed Up',
-              onpress: () {
-                if (validateForm()) {
-                  if (validatePass()) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Signed up successfully')),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('match the password')),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: 50),
+              Textfromfield(
+                hintText: 'First Name',
+                controller: first_controller,
+                see: false,
+                validator: validator.FirstName,
+              ),
+              Textfromfield(
+                hintText: 'Last Name',
+                controller: last_controller,
+                see: false,
+                validator: validator.LastName,
+              ),
+              Textfromfield(
+                hintText: 'Email',
+                controller: emal_controller,
+                see: false,
+                validator: validator.email,
+              ),
+              Textfromfield(
+                hintText: 'Password',
+                controller: passwordcontroler,
+                see: true,
+                validator: validator.password,
+              ),
+              Textfromfield(
+                hintText: 'Conform Password',
+                controller: ConformController,
+                see: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Conform Password is required';
+                  } else if (!validatePass()) {
+                    return 'Conform Password Should be Same';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 50),
+              CustomButton(
+                TxT: 'Signed Up',
+                onpress: () {
+                  if (_formKey.currentState!.validate()) {
+                    showDialog<String>(
+                      context: context,
+                      builder:
+                          (BuildContext context) => AlertDialog(
+                            title: Text('Sign Up'),
+                            content: Text('Your Account has been created'),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text('OK'),
+                              ),
+                            ],
+                          ),
                     );
                   }
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Fill the Form'),
-                      backgroundColor: Colors.red,
-                    ),
-                  );
-                }
-              },
-            ),
-          ],
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
   bool validatePass() {
-    return passwordcontroler.text == ConformController;
-  }
-
-  bool validateForm() {
-    return first_controller.text.isEmpty &&
-        last_controller.text.isEmpty &&
-        emal_controller.text.isEmpty &&
-        passwordcontroler.text.isEmpty &&
-        ConformController.text.isEmpty;
+    return passwordcontroler.text == ConformController.text;
   }
 }

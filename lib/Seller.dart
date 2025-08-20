@@ -3,6 +3,7 @@ import 'package:m_box/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Login_page.dart';
+
 class Seller extends StatefulWidget {
   const Seller({super.key});
 
@@ -11,24 +12,29 @@ class Seller extends StatefulWidget {
 }
 
 class _SellerState extends State<Seller> {
-  String email ='';
+  String email = '';
   String role = '';
   @override
-  void initState(){
+  void initState() {
     super.initState();
     loadData();
   }
-  loadData()async{
+
+  loadData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     email = sp.getString('email') ?? '';
-    role = sp.getString('Role')?? '';
-    setState(() {
-    });
+    role = sp.getString('Role') ?? '';
+    setState(() {});
   }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Car Sale',style: TextStyle(color: Colors.white,fontFamily: 'rubik_medium'),),
+        title: Text(
+          'Car Sale',
+          style: TextStyle(color: Colors.white, fontFamily: 'rubik_medium'),
+        ),
         backgroundColor: orangeColor,
         centerTitle: true,
         automaticallyImplyLeading: false,
@@ -42,28 +48,33 @@ class _SellerState extends State<Seller> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text('Email',style: TextStyle(fontSize: 20),),
-              Text(email,style: TextStyle(fontSize: 20),),
+              Text('Email', style: TextStyle(fontSize: 20)),
+              Text(email, style: TextStyle(fontSize: 20)),
             ],
           ),
           Divider(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text('Role',style: TextStyle(fontSize: 20),),
-              Text(role,style: TextStyle(fontSize: 20),),
+              Text('Role', style: TextStyle(fontSize: 20)),
+              Text(role, style: TextStyle(fontSize: 20)),
             ],
           ),
           Divider(),
-          SizedBox(height: 20,),
-          CustomButton(TxT: 'Log Out', onpress: () async{
-            SharedPreferences sp =await SharedPreferences.getInstance();
-            sp.clear();
-            Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginPage()));
-          })
+          SizedBox(height: 20),
+          CustomButton(
+            TxT: 'Log Out',
+            onpress: () async {
+              SharedPreferences sp = await SharedPreferences.getInstance();
+              sp.clear();
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage()),
+              );
+            },
+          ),
         ],
       ),
-
     );
   }
 }
