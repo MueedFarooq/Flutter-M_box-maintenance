@@ -4,10 +4,10 @@ Color orangeColor = Color(0xfff9703b);
 Color WhiColor = Color(0xffE4E7eB);
 
 class Textfromfield extends StatefulWidget {
-  final String hint_Text;
-  final TextEditingController tec;
+  final String hintText;
+  final TextEditingController controller;
   final bool see;
-  const Textfromfield({super.key, required this.hint_Text,required this.tec, this.see = false});
+  const Textfromfield({super.key, required this.hintText,required this.controller, required this.see });
 
   @override
   State<Textfromfield> createState() => _TextfromfieldState();
@@ -20,9 +20,9 @@ class _TextfromfieldState extends State<Textfromfield> {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextFormField(
         obscureText: widget.see,
-        controller: widget.tec,
+        controller: widget.controller,
         decoration: InputDecoration(
-          hintText: widget.hint_Text,
+          hintText: widget.hintText,
           fillColor: WhiColor,
           filled: true,
           focusedBorder: OutlineInputBorder(
@@ -40,7 +40,7 @@ class _TextfromfieldState extends State<Textfromfield> {
 class CustomButton extends StatelessWidget {
   final String TxT;
   final VoidCallback onpress;
-  const CustomButton({super.key, required this.TxT, required this.onpress});
+ const  CustomButton({super.key,required this.TxT, required this.onpress});
 
   @override
   Widget build(BuildContext context) {
